@@ -6,6 +6,9 @@ pipeline {
     }
     
     environment {
+
+        AVA_HOME = "/usr/lib/jvm/java-17-openjdk-amd64"  // Adjust this path to your JDK17 installation
+        PATH = "${JAVA_HOME}/bin:${PATH}"
         SNAP_REPO = 'vprofile-snapshot'
 		NEXUS_USER = 'admin'
 		NEXUS_PASS = 'Sabir@92'
@@ -20,6 +23,8 @@ pipeline {
     stages {
         stage('Build'){
             steps {
+                sh 'echo "JAVA_HOME is set to: $JAVA_HOME"'
+                sh 'java -version'
                 sh 'mvn -s settings.xml -DskipTests install'
             }
         }
